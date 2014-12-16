@@ -96,7 +96,7 @@ namespace :postgresql do
   desc 'Create DB user'
   task :create_db_user do
     on roles :db do
-      next if db_user_exists? fetch(:pg_user)
+      # next if db_user_exists? fetch(:pg_user)
       unless psql '-c', %Q{"CREATE user #{fetch(:pg_user)} WITH password '#{fetch(:pg_password)}';"}
         error 'postgresql: creating database user failed!'
         exit 1
@@ -107,7 +107,7 @@ namespace :postgresql do
   desc 'Create database'
   task :create_database do
     on roles :db do
-      next if database_exists? fetch(:pg_database)
+      # next if database_exists? fetch(:pg_database)
       unless psql '-c', %Q{"CREATE database #{fetch(:pg_database)} owner #{fetch(:pg_user)};"}
         error 'postgresql: creating database failed!'
         exit 1
@@ -120,7 +120,7 @@ namespace :postgresql do
   desc 'Generate database.yml archetype'
   task :generate_database_yml_archetype do
     on roles :db, primary: true do
-      next if test "[ -e #{archetype_database_yml_file} ]"
+      # next if test "[ -e #{archetype_database_yml_file} ]"
       execute :mkdir, '-pv', File.dirname(archetype_database_yml_file)
       upload! pg_template('postgresql.yml.erb'), archetype_database_yml_file
     end
