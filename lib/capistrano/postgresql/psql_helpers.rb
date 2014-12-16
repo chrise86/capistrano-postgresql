@@ -22,7 +22,7 @@ module Capistrano
 
       private
       def psql_on_db(db_name, *args)
-        test :sudo, "-u #{fetch(:pg_system_user)} psql -d #{db_name}", *args
+        test "-u #{fetch(:pg_system_user)} psql -d #{db_name}", *args
       end
     end
   end
